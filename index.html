@@ -1,25 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Sensitivity Generator</title>
+  <meta charset="UTF-8">
+  <title>Free Fire Sensitivity Settings</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #111;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background: linear-gradient(145deg, #222, #1a1a1a);
+      border-radius: 15px;
+      padding: 30px 40px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+      width: 350px;
+    }
+
+    .card h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #facc15;
+    }
+
+    .setting {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+      font-size: 18px;
+      border-bottom: 1px solid #333;
+      padding-bottom: 5px;
+    }
+
+    .label {
+      color: #ccc;
+    }
+
+    .value {
+      color: #0ef;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-  <h2>Sensitivity Generator (0–200)</h2>
 
-  <label for="device">Enter your device:</label>
-  <input type="text" id="device"><br><br>
+  <div class="card">
+    <h2>🎯 Free Fire Sensitivity</h2>
+    <div class="setting"><div class="label">General</div><div class="value">185</div></div>
+    <div class="setting"><div class="label">Red Dot</div><div class="value">190</div></div>
+    <div class="setting"><div class="label">2x Scope</div><div class="value">170</div></div>
+    <div class="setting"><div class="label">4x Scope</div><div class="value">155</div></div>
+    <div class="setting"><div class="label">Sniper Scope</div><div class="value">140</div></div>
+    <div class="setting"><div class="label">Free Look</div><div class="value">200</div></div>
+  </div>
 
-  <button onclick="generate()">Generate</button>
-
-  <p id="output"></p>
-
-  <script>
-    function generate() {
-      const device = document.getElementById('device').value;
-      let sensitivity = Math.floor(Math.random() * 201);
-      document.getElementById('output').innerText = 
-        `Device: ${device} — Sensitivity: ${sensitivity}`;
-    }
-  </script>
 </body>
 </html>
