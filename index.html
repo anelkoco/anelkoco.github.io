@@ -1,118 +1,111 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Free Fire Sensitivity Generator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Fire Sensibilidad</title>
   <style>
     body {
-      background-color: #111;
+      background-color: #000;
       color: #fff;
       font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-
-    .container {
-      background-color: #1a1a1a;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px #000;
-      width: 350px;
       text-align: center;
+      padding: 20px;
     }
-
-    input {
-      width: 100%;
+    h1 {
+      color: #dfff00;
+    }
+    select, button {
       padding: 10px;
-      border-radius: 6px;
-      border: none;
-      margin-bottom: 15px;
-      background: #222;
-      color: #fff;
       font-size: 16px;
+      margin: 10px;
+      border-radius: 5px;
+      border: none;
     }
-
     button {
-      background: #0ef;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      font-size: 16px;
+      background-color: yellow;
+      color: #000;
       font-weight: bold;
       cursor: pointer;
     }
-
-    button:hover {
-      background: #00d0d0;
-    }
-
-    .card {
+    .result {
       margin-top: 20px;
-      text-align: left;
+      font-size: 18px;
     }
-
-    .setting {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 0;
-      border-bottom: 1px solid #333;
-    }
-
-    .label {
-      color: #ccc;
-    }
-
-    .value {
-      color: #facc15;
-      font-weight: bold;
+    .character-img {
+      margin-top: 20px;
+      width: 150px;
     }
   </style>
 </head>
 <body>
+  <h1>SENSIBILIDADES WOODS_FF</h1>
+  <label>Selecciona la marca</label><br/>
+  <select id="brandSelect" onchange="populateModels()">
+    <option value="">--Seleccionar--</option>
+    <option value="APPLE">APPLE</option>
+    <option value="SAMSUNG">SAMSUNG</option>
+  </select><br/>
 
-  <div class="container">
-    <h2>🎮 Free Fire Sensitivity Generator</h2>
-    <input type="text" id="deviceInput" placeholder="Enter your device (e.g., Poco X3)">
-    <button onclick="generateSensitivity()">Generate</button>
+  <label>Selecciona el modelo</label><br/>
+  <select id="modelSelect">
+    <option value="">--Seleccionar--</option>
+  </select><br/>
 
-    <div id="result" class="card" style="display: none;">
-      <h3 id="deviceName">Device: </h3>
-      <div class="setting"><div class="label">General</div><div class="value" id="general"></div></div>
-      <div class="setting"><div class="label">Red Dot</div><div class="value" id="redDot"></div></div>
-      <div class="setting"><div class="label">2x Scope</div><div class="value" id="scope2x"></div></div>
-      <div class="setting"><div class="label">4x Scope</div><div class="value" id="scope4x"></div></div>
-      <div class="setting"><div class="label">Sniper Scope</div><div class="value" id="sniper"></div></div>
-      <div class="setting"><div class="label">Free Look</div><div class="value" id="freeLook"></div></div>
-    </div>
-  </div>
+  <button onclick="generateRandomSensitivity()">Generar sensibilidad</button>
+
+  <div class="result" id="resultContainer"></div>
+  <img src="https://i.ibb.co/kxQz65c/character.png" class="character-img" alt="Character"/>
 
   <script>
-    function getRandomSensitivity(min, max) {
+    const deviceModels = {
+      APPLE: ["iPhone XR", "iPhone 11", "iPhone 12"],
+      SAMSUNG: ["Galaxy A51", "Galaxy S20", "Galaxy M31"]
+    };
+
+    function populateModels() {
+      const brand = document.getElementById('brandSelect').value;
+      const modelSelect = document.getElementById('modelSelect');
+      modelSelect.innerHTML = '<option value="">--Seleccionar--</option>';
+
+      if (deviceModels[brand]) {
+        deviceModels[brand].forEach(model => {
+          const option = document.createElement('option');
+          option.value = model;
+          option.textContent = model;
+          modelSelect.appendChild(option);
+        });
+      }
+    }
+
+    function randomBetween(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    function generateSensitivity() {
-      const device = document.getElementById('deviceInput').value;
-      if (!device.trim()) {
-        alert("Please enter your device name.");
-        return;
+    function generateRandomSensitivity() {
+      const brand = document.getElementById('brandSelect').value;
+      const model = document.getElementById('modelSelect').value;
+      const result = document.getElementById('resultContainer');
+
+      if (brand && model) {
+        const general = randomBetween(140, 200);
+        const redDot = randomBetween(130, 200);
+        const scope2x = randomBetween(60, 170);
+        const scope4x = randomBetween(80, 160);
+        const buttonSize = randomBetween(35, 55);
+
+        result.innerHTML = `
+          <h2>${model}</h2>
+          <p><strong>General:</strong> ${general}</p>
+          <p><strong>Mira de Punto Rojo:</strong> ${redDot}</p>
+          <p><strong>Mira X2:</strong> ${scope2x}</p>
+          <p><strong>Mira X4:</strong> ${scope4x}</p>
+          <p><strong>Tamaño del Botón:</strong> ${buttonSize}</p>
+        `;
+      } else {
+        result.innerHTML = `<p style="color:red;">Por favor selecciona marca y modelo.</p>`;
       }
-
-      document.getElementById('deviceName').innerText = `Device: ${device}`;
-      document.getElementById('general').innerText = getRandomSensitivity(160, 200);
-      document.getElementById('redDot').innerText = getRandomSensitivity(160, 200);
-      document.getElementById('scope2x').innerText = getRandomSensitivity(140, 180);
-      document.getElementById('scope4x').innerText = getRandomSensitivity(130, 170);
-      document.getElementById('sniper').innerText = getRandomSensitivity(120, 160);
-      document.getElementById('freeLook').innerText = getRandomSensitivity(170, 200);
-
-      document.getElementById('result').style.display = 'block';
     }
   </script>
-
 </body>
 </html>
