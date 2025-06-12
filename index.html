@@ -2,40 +2,64 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Free Fire Sensitivity Settings</title>
+  <title>Free Fire Sensitivity Generator</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
       background-color: #111;
       color: #fff;
+      font-family: Arial, sans-serif;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
       height: 100vh;
       margin: 0;
     }
 
-    .card {
-      background: linear-gradient(145deg, #222, #1a1a1a);
-      border-radius: 15px;
-      padding: 30px 40px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+    .container {
+      background-color: #1a1a1a;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #000;
       width: 350px;
+      text-align: center;
     }
 
-    .card h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #facc15;
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      margin-bottom: 15px;
+      background: #222;
+      color: #fff;
+      font-size: 16px;
+    }
+
+    button {
+      background: #0ef;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #00d0d0;
+    }
+
+    .card {
+      margin-top: 20px;
+      text-align: left;
     }
 
     .setting {
       display: flex;
       justify-content: space-between;
-      margin: 10px 0;
-      font-size: 18px;
+      padding: 8px 0;
       border-bottom: 1px solid #333;
-      padding-bottom: 5px;
     }
 
     .label {
@@ -43,22 +67,52 @@
     }
 
     .value {
-      color: #0ef;
+      color: #facc15;
       font-weight: bold;
     }
   </style>
 </head>
 <body>
 
-  <div class="card">
-    <h2>🎯 Free Fire Sensitivity</h2>
-    <div class="setting"><div class="label">General</div><div class="value">185</div></div>
-    <div class="setting"><div class="label">Red Dot</div><div class="value">190</div></div>
-    <div class="setting"><div class="label">2x Scope</div><div class="value">170</div></div>
-    <div class="setting"><div class="label">4x Scope</div><div class="value">155</div></div>
-    <div class="setting"><div class="label">Sniper Scope</div><div class="value">140</div></div>
-    <div class="setting"><div class="label">Free Look</div><div class="value">200</div></div>
+  <div class="container">
+    <h2>🎮 Free Fire Sensitivity Generator</h2>
+    <input type="text" id="deviceInput" placeholder="Enter your device (e.g., Poco X3)">
+    <button onclick="generateSensitivity()">Generate</button>
+
+    <div id="result" class="card" style="display: none;">
+      <h3 id="deviceName">Device: </h3>
+      <div class="setting"><div class="label">General</div><div class="value" id="general"></div></div>
+      <div class="setting"><div class="label">Red Dot</div><div class="value" id="redDot"></div></div>
+      <div class="setting"><div class="label">2x Scope</div><div class="value" id="scope2x"></div></div>
+      <div class="setting"><div class="label">4x Scope</div><div class="value" id="scope4x"></div></div>
+      <div class="setting"><div class="label">Sniper Scope</div><div class="value" id="sniper"></div></div>
+      <div class="setting"><div class="label">Free Look</div><div class="value" id="freeLook"></div></div>
+    </div>
   </div>
+
+  <script>
+    function getRandomSensitivity(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function generateSensitivity() {
+      const device = document.getElementById('deviceInput').value;
+      if (!device.trim()) {
+        alert("Please enter your device name.");
+        return;
+      }
+
+      document.getElementById('deviceName').innerText = `Device: ${device}`;
+      document.getElementById('general').innerText = getRandomSensitivity(160, 200);
+      document.getElementById('redDot').innerText = getRandomSensitivity(160, 200);
+      document.getElementById('scope2x').innerText = getRandomSensitivity(140, 180);
+      document.getElementById('scope4x').innerText = getRandomSensitivity(130, 170);
+      document.getElementById('sniper').innerText = getRandomSensitivity(120, 160);
+      document.getElementById('freeLook').innerText = getRandomSensitivity(170, 200);
+
+      document.getElementById('result').style.display = 'block';
+    }
+  </script>
 
 </body>
 </html>
